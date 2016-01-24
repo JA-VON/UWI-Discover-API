@@ -1,0 +1,79 @@
+<html>
+<head>
+	<% include partials/head.ejs %>
+	<style>
+		#map {
+			width: 500px;
+			height: 400px;
+			background-color: #CCC;
+		}
+	</style>
+</head>
+<body>
+
+    <% include partials/header %>
+    
+	<form action="/sessions" method="post">
+		<div class="form-group">
+			<label for="topic">Topic</label>
+			<input type="text" id="topic">
+		</div>
+		<div class="form-group">
+			<label for="start_time">Start Time</label>
+			<input type="date" id="start_time">
+		</div>
+		<div class="form-group">
+			<label for="end_time">End Time</label>
+			<input type="date" id="end_time">
+		</div>
+
+		<div id="map"></div>
+		
+		<div class="form-group">
+			<label for="longitude"></label>
+			<input type="text" id="longitude" disabled>
+		</div>
+
+		<div class="form-group">
+			<label for="latitude"></label>
+			<input type="text" id="latitude" disabled>
+		</div>
+
+		<h1>Speaker</h1>
+
+		<div class="form-group">
+			<label for="name">Name</label>
+			<input type="text" id="name">
+		</div>
+		<div class="form-group">
+			<label for="position">Position</label>
+			<input type="text" id="position">
+		</div>
+		<div class="form-group">
+			<label for="email">Email</label>
+			<input type="email" id="email">
+		</div>
+
+		<button type="submit" class="btn btn-default">Create</button>
+	</form>
+
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzzzsnkVchLtHA0K07Zd35n_W6sdRuJlc&callback=initMap"
+  type="text/javascript"></script>
+	
+	<script type="text/javascript">
+		var map;
+
+		function initMap() {
+			map = new google.maps.Map(document.getElementById('map'), {
+				center: {
+					lat: -34.397,
+					lng: 150.644
+				},
+				scrollwheel: false,
+				zoom:10
+			});
+		}
+	</script>\
+	
+</body>
+</html>

@@ -1,0 +1,10 @@
+.form-card {
+	margin-top: 20px;
+	width: 800px;
+}
+
+.content {
+	display: flex;
+	-webkit-justify-content: center;
+	justify-content: center;
+}

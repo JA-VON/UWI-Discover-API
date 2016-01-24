@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/head %>
+  </head>
+  <body>
+    <% include partials/header %>
+
+    <h1>Departments</h1>
+    <% if (departments.length) { %>
+    	<ul>
+    	<% departments.forEach(function(department) { %>
+    		<li><%= department.name %></li>
+    	<% }) %>
+    	</ul>
+    <% } else { %>
+    	<h1>No departments</h1>
+    <% } %>
+
+    <a href="/departments/create"><paper-button raised>Add Department</paper-button></a>
+  </body>
+</html>
