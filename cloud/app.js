@@ -1,6 +1,12 @@
-
 // These two lines are required to initialize Express in Cloud Code.
  express = require('express');
+
+// controllers
+var facultiesCtrl = require('cloud/controllers/faculties');
+// var departmentsCtrl = require('cloud/controllers/departments.js');
+// var sessionsCtrl = require('cloud/controllers/sessions.js');
+// var projectsCtrl = require('cloud/controllers/projects.js');
+
  app = express();
 
 // Global app configuration section
@@ -14,34 +20,10 @@ app.get('/hello', function(req, res) {
   res.render('hello', { message: 'Congrats, you just set up your app!' });
 });
 
-app.get('/faculties', function(req, res) {
-	var Faculty = Parse.Object.extend('Faculty');
-	var query = new Parse.Query(Faculty);
+app.get('/faculties', facultiesCtrl.index);
+app.get('/faculties/new', facultiesCtrl.new);
+app.post('/faculties', facultiesCtrl.create);
 
-	query.descending('createdAt');
-	query.find().then(function(results) {
-		res.render('faculties/all', { faculties: results });
-	}, function() {
-		res.render(500, 'Failed to load faculties');
-	});
-
-	query.find({
-		success: function(results) {
-			
-		},
-		error: function(err) {
-			alert("Error: " + err.code + " " + error.message);
-		}
-	})
-});
-
-app.get('/faculties/create', function(req, res) {
-	res.render('faculties/create');
-});
-
-app.post('/faculties', function(req, res) {
-	// TODO
-});
 
 app.get('/departments', function(req, res) {
 	res.render('departments/all', {

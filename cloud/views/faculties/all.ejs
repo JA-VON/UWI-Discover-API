@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% include partials/head %>
+    <% include ../partials/head %>
   </head>
   <body>
-    <% include partials/header %>
+    <% include ../partials/header %>
 
     <h1>Faculties</h1>
     <% if (faculties.length) { %>
@@ -17,6 +17,6 @@
     	<h1>No faculties</h1>
     <% } %>
 
-    <a href="/faculties/create"><paper-button raised>Add Faculty</paper-button></a>
+    <a href="/faculties/new"><paper-button raised>Add Faculty</paper-button></a>
   </body>
 </html>

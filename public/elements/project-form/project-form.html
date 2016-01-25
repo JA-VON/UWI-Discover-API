@@ -1,0 +1,116 @@
+<link rel="import" href="/../bower_components/polymer/polymer.html">
+
+<link rel="import" href="/../bower_components/iron-form/iron-form.html">
+<link rel="import" href="/../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/../bower_components/iron-icon/iron-icon.html">
+
+<link rel="import" href="/../bower_components/paper-card/paper-card.html">
+<link rel="import" href="/../bower_components/paper-input/paper-input.html">
+<link rel="import" href="/../bower_components/paper-button/paper-button.html">
+<link rel="import" href="/../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="/../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="/../bower_components/paper-item/paper-item.html">
+
+<link rel="import" href="/../bower_components/google-map/google-map.html">
+
+<dom-module id="project-form">
+	<style>
+
+	</style>
+	
+	<template>
+		<iron-ajax
+			id="ajax"
+			url="/projects"
+			content-type="application/json"
+			method="POST"
+			handle-as="json"
+			on-reponse="postComplete"
+			debounce-duration="3000">
+		</iron-ajax>
+		
+		<paper-card heading="Add Project" image="" elevation="1" animated-shadow="false">
+		  <div class="card-content">
+			<form is="iron-form" id="form" action="/departments" method="post">
+
+				<paper-input value="{{title::input}}" name="title" label="Topic"></paper-input>
+				<paper-input value="{{description::input}}" name="description" label="Description"></paper-input>
+				<paper-input value="{{speaker::input}}" name="speaker" label="Speaker"></paper-input>
+				<paper-input value="{{moderator::input}}" name="moderator" label="Moderator"></paper-input>
+				<google-map latitude="37.779" longitude="-122.3892" zoom="13" disable-default-ui></google-map>
+
+			</form>
+		  </div>
+		  <div class="card-actions">
+		    <paper-button on-tap="attemptSave">Save</paper-button>
+		  </div>
+		</paper-card>
+	</template>
+
+	<script>
+	Polymer({
+		is: 'project-form',
+
+		properties: {
+			topic: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			description: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			speaker: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			start_time: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			end_time: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			moderator: {
+				type: String,
+				value: '',
+				notify: true
+			}
+		},
+
+		ready: function() {
+			this.$.form.addEventListener('iron-form-presubmit', function(event) {
+				event.preventDefault();
+			});
+		},
+
+		attemptSave: function() {
+			var topic = this.topic,
+				description = this.description,
+				speaker = this.speaker,
+				start_time = this.start_time,
+				end_time = this.end_time,
+				moderator = this.moderator;
+
+			this.$.ajax.body = {
+				"topic": topic,
+				"description": description,
+				"speaker": speaker,
+				"start_time": start_time,
+				"end_time": end_time,
+				"moderator": moderator
+			};,
+
+
+			this.$.ajax.generateRequest();
+		}
+	});
+	</script>
+</dom-module>
