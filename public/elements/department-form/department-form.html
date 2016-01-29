@@ -16,6 +16,14 @@
 	
 	<template>
 		<iron-ajax
+		 	auto
+		 	url="/api/faculties"
+		 	content-type="application/json"
+		 	method="GET"
+		 	handle-as="json"
+		 	last-response="{{faculties}}"></iron-ajax>
+
+		<iron-ajax
 			id="ajax"
 			url="/departments"
 			content-type="application/json"
@@ -28,15 +36,15 @@
 		<paper-card heading="Add Department" image="" elevation="1" animated-shadow="false">
 		  <div class="card-content">
 			<form is="iron-form" id="form" action="/departments" method="post">
-				<paper-input value="{{name::input}" name="name" label="Name"></paper-input>
-				<paper-input value="{{number::input}" name="number" label="Contact Number"></paper-input>
-				<paper-input value="{{email::input}" name="email" label="Email"></paper-input>
-				<paper-input value="{{hod::input}" name="hod" label="Head of Dept."></paper-input>
+				<paper-input value="{{name::input}}" name="name" label="Name"></paper-input>
+				<paper-input value="{{number::input}}" name="number" label="Contact Number"></paper-input>
+				<paper-input value="{{email::input}}" name="email" label="Email"></paper-input>
+				<paper-input value="{{hod::input}}" name="hod" label="Head of Dept."></paper-input>
 				
 				<paper-dropdown-menu label="Faculties">
-					<paper-menu class="dropdown-content">
+					<paper-menu id="menu" class="dropdown-content">
 						<template is="dom-repeat" items="{{faculties}}">
-							<paper-item>item.name</paper-item>
+							<paper-item>{{ item.name }}</paper-item>
 						</template>
 					</paper-menu>
 				</paper-dropdown-menu>
@@ -53,7 +61,10 @@
 		is: 'department-form',
 
 		properties: {
-			faculties: Array,
+			faculties: {
+				type: Array,
+				value: []
+			},
 			name: {
 				type: String,
 				value: '',
@@ -92,7 +103,8 @@
 				"name": name,
 				"number": number,
 				"email": email,
-				"hod", hod
+				"hod": hod,
+				"faculty": this.$.menu.selectedItem.getAttribute("value")
 			};
 
 			this.$.ajax.generateRequest();

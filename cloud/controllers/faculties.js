@@ -1,7 +1,8 @@
+var _ = require('underscore');
+
 var Faculty = Parse.Object.extend('Faculty');
 
 exports.index = function(req, res) {
-	var Faculty = Parse.Object.extend('Faculty');
 	var query = new Parse.Query(Faculty);
 
 	query.descending('createdAt');
@@ -19,7 +20,20 @@ exports.new = function(req, res) {
 exports.create = function(req, res) {
 	var faculty = new Faculty();
 
-	// save	
+	faculty.save(_.pick(req.body, 'name', 'number', 'dean'))
+		.then(function() {
+			res.redirect('/faculties');
+		})
+};
+
+exports.indexJSON = function(req, res) {
+	var query = new Parse.Query(Faculty);
+
+	query.descending('createdAt');
+	query.find().then(function(results) {
+		console.log("faculties: " + JSON.stringify(results));
+		res.json(results);
+	});
 };
 
 exports.show = function(req, res) {

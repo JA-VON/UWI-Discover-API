@@ -1,8 +1,8 @@
  express = require('express');
 
 var facultiesCtrl = require('cloud/controllers/faculties');
-// var departmentsCtrl = require('cloud/controllers/departments.js');
-// var sessionsCtrl = require('cloud/controllers/sessions.js');
+var departmentsCtrl = require('cloud/controllers/departments.js');
+var sessionsCtrl = require('cloud/controllers/sessions.js');
 // var projectsCtrl = require('cloud/controllers/projects.js');
 
  app = express();
@@ -21,23 +21,15 @@ app.get('/hello', function(req, res) {
 app.get('/faculties', facultiesCtrl.index);
 app.get('/faculties/new', facultiesCtrl.new);
 app.post('/faculties', facultiesCtrl.create);
+app.get('/api/faculties', facultiesCtrl.indexJSON);
 
 
-app.get('/departments', function(req, res) {
-	res.render('departments/all', {
-		departments: []
-	})
-});
+app.get('/departments', departmentsCtrl.index);
+app.get('/departments/new', departmentsCtrl.new);
+app.post('/departments', departmentsCtrl.create);
+app.get('/api/departments', facultiesCtrl.indexJSON);
 
-app.get('/departments/create', function(req, res) {
-	res.render('departments/create');
-});
-
-app.post('/departments', function(req, res) {
-	// TODO
-});
-
-app.get('/projects/create', function(req, res) {
+app.get('/projects/new', function(req, res) {
 	res.render('projects/create');
 });
 
@@ -49,16 +41,9 @@ app.post('/projects', function(req, res) {
 	});
 });
 
-app.get('/sessions', function(req, res) {
-	res.render('sessions/all', {
-		sessions: [],
-		message: 'No sessions available' 
-	});
-});
-
-app.post('/sessions/create', function(req, res) {
-	res.render('sessions/create')
-});
+app.get('/sessions', sessionsCtrl.index);
+app.get('/sessions/new', sessionsCtrl.new);
+app.post('/sessions/create', sessionsCtrl.create);
 
 // // Example reading from the request query string of an HTTP get request.
 // app.get('/test', function(req, res) {

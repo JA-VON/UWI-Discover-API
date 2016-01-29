@@ -6,16 +6,7 @@
   <body>
     <% include ../partials/header %>
 
-    <h1>Faculties</h1>
-    <% if (faculties.length) { %>
-    	<ul>
-    	<% faculties.forEach(function(faculty) { %>
-    		<li><%= faculty.name %></li>
-    	<% }) %>
-    	</ul>
-    <% } else { %>
-    	<h1>No faculties</h1>
-    <% } %>
+    <faculty-list></faculty-list>
 
     <a href="/faculties/new"><paper-button raised>Add Faculty</paper-button></a>
   </body>

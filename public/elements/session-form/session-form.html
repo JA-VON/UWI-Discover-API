@@ -28,11 +28,11 @@
 		<paper-card heading="Add Session" image="" elevation="1" animated-shadow="false">
 		  <div class="card-content">
 			<form is="iron-form" id="form" action="/departments" method="post">
-				<paper-input value="{{topic::input}" name="topic" label="topic"></paper-input>
-				<paper-input value="{{description::input}" name="description" label="Description"></paper-input>
-				<paper-input value="{{start_time::input}" name="start_time" label="Start Time"></paper-input>
-				<paper-input value="{{end_time::input}" name="end_time" label="End Time"></paper-input>
-				<paper-input value="{{speaker::input}" name="speaker" label="Speaker"></paper-input>
+				<paper-input value="{{topic::input}}" name="topic" label="topic"></paper-input>
+				<paper-input value="{{description::input}}" name="description" label="Description"></paper-input>
+				<paper-input value="{{start_time::input}}" name="start_time" label="Start Time"></paper-input>
+				<paper-input value="{{end_time::input}}" name="end_time" label="End Time"></paper-input>
+				<paper-input value="{{speaker::input}}" name="speaker" label="Speaker"></paper-input>
 				
 			</form>
 		  </div>
@@ -93,7 +93,7 @@
 				"speaker": speaker,
 				"start_time": start_time,
 				"end_time": end_time
-			};,
+			};
 
 
 			this.$.ajax.generateRequest();
