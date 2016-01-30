@@ -1,0 +1,103 @@
+<link rel="import" href="/../bower_components/polymer/polymer.html">
+
+<link rel="import" href="/../bower_components/iron-form/iron-form.html">
+
+<link rel="import" href="/../bower_components/paper-card/paper-card.html">
+<link rel="import" href="/../bower_components/paper-input/paper-input.html">
+<link rel="import" href="/../bower_components/paper-button/paper-button.html">
+<link rel="import" href="/../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="/../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="/../bower_components/paper-item/paper-item.html">
+
+<dom-module id="session-form">
+	<style>
+
+	</style>
+	
+	<template>
+		<iron-ajax
+			id="ajax"
+			url="/sessions"
+			content-type="application/json"
+			method="POST"
+			handle-as="json"
+			on-reponse="postComplete"
+			debounce-duration="3000">
+		</iron-ajax>
+		
+		<paper-card heading="Add Session" image="" elevation="1" animated-shadow="false">
+		  <div class="card-content">
+			<form is="iron-form" id="form" action="/departments" method="post">
+				<paper-input value="{{topic::input}}" name="topic" label="topic"></paper-input>
+				<paper-input value="{{description::input}}" name="description" label="Description"></paper-input>
+				<paper-input value="{{start_time::input}}" name="start_time" label="Start Time"></paper-input>
+				<paper-input value="{{end_time::input}}" name="end_time" label="End Time"></paper-input>
+				<paper-input value="{{speaker::input}}" name="speaker" label="Speaker"></paper-input>
+				
+			</form>
+		  </div>
+		  <div class="card-actions">
+		    <paper-button on-tap="attemptSave">Save</paper-button>
+		  </div>
+		</paper-card>
+	</template>
+
+	<script>
+	Polymer({
+		is: 'session-form',
+
+		properties: {
+			topic: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			description: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			speaker: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			start_time: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			end_time: {
+				type: String,
+				value: '',
+				notify: true
+			}
+		},
+
+		ready: function() {
+			this.$.form.addEventListener('iron-form-presubmit', function(event) {
+				event.preventDefault();
+			});
+		},
+
+		attemptSave: function() {
+			var topic = this.topic,
+				description = this.description,
+				speaker = this.speaker,
+				start_time = this.start_time,
+				end_time = this.end_time;
+
+			this.$.ajax.body = {
+				"topic": topic,
+				"description": description,
+				"speaker": speaker,
+				"start_time": start_time,
+				"end_time": end_time
+			};
+
+
+			this.$.ajax.generateRequest();
+		}
+	});
+	</script>
+</dom-module>

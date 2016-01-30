@@ -1,0 +1,23 @@
+<html>
+<head>
+	<% include ../partials/head.ejs %>
+</head>
+<body>
+
+    <% include ../partials/header %>
+
+	<h1>Sessions</h1>
+
+	<% if (sessions.length) { %>
+		<% for(var i = 0; i < sessions.length; i++) { %>
+			<ul class="list-group">
+				<li><%= sessions[i].topic %></li>
+			</ul>
+	 	<% } %>
+	<% } else { %>
+		<h3><%= message %></h3>
+	<% } %>
+
+	<a href="/sessions/new"><paper-button raised>Add Session</paper-button></a>
+</body>
+</html>

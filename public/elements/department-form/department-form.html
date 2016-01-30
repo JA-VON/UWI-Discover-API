@@ -1,0 +1,114 @@
+<link rel="import" href="/../bower_components/polymer/polymer.html">
+
+<link rel="import" href="/../bower_components/iron-form/iron-form.html">
+
+<link rel="import" href="/../bower_components/paper-card/paper-card.html">
+<link rel="import" href="/../bower_components/paper-input/paper-input.html">
+<link rel="import" href="/../bower_components/paper-button/paper-button.html">
+<link rel="import" href="/../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="/../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="/../bower_components/paper-item/paper-item.html">
+
+<dom-module id="department-form">
+	<style>
+
+	</style>
+	
+	<template>
+		<iron-ajax
+		 	auto
+		 	url="/api/faculties"
+		 	content-type="application/json"
+		 	method="GET"
+		 	handle-as="json"
+		 	last-response="{{faculties}}"></iron-ajax>
+
+		<iron-ajax
+			id="ajax"
+			url="/departments"
+			content-type="application/json"
+			method="POST"
+			handle-as="json"
+			on-reponse="postComplete"
+			debounce-duration="3000">
+		</iron-ajax>
+		
+		<paper-card heading="Add Department" image="" elevation="1" animated-shadow="false">
+		  <div class="card-content">
+			<form is="iron-form" id="form" action="/departments" method="post">
+				<paper-input value="{{name::input}}" name="name" label="Name"></paper-input>
+				<paper-input value="{{number::input}}" name="number" label="Contact Number"></paper-input>
+				<paper-input value="{{email::input}}" name="email" label="Email"></paper-input>
+				<paper-input value="{{hod::input}}" name="hod" label="Head of Dept."></paper-input>
+				
+				<paper-dropdown-menu label="Faculties">
+					<paper-menu id="menu" class="dropdown-content">
+						<template is="dom-repeat" items="{{faculties}}">
+							<paper-item>{{ item.name }}</paper-item>
+						</template>
+					</paper-menu>
+				</paper-dropdown-menu>
+			</form>
+		  </div>
+		  <div class="card-actions">
+		    <paper-button on-tap="attemptSave">Save</paper-button>
+		  </div>
+		</paper-card>
+	</template>
+
+	<script>
+	Polymer({
+		is: 'department-form',
+
+		properties: {
+			faculties: {
+				type: Array,
+				value: []
+			},
+			name: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			number: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			email: {
+				type: String,
+				value: '',
+				notify: true
+			},
+			hod: {
+				type: String,
+				value: '',
+				notify: true
+			}
+		},
+
+		ready: function() {
+			this.$.form.addEventListener('iron-form-presubmit', function(event) {
+				event.preventDefault();
+			});
+		},
+
+		attemptSave: function() {
+			var name = this.name,
+				number = this.number,
+				email = this.email,
+				hod = this.hod;
+
+			this.$.ajax.body = {
+				"name": name,
+				"number": number,
+				"email": email,
+				"hod": hod,
+				"faculty": this.$.menu.selectedItem.getAttribute("value")
+			};
+
+			this.$.ajax.generateRequest();
+		}
+	});
+	</script>
+</dom-module>

@@ -1,0 +1,43 @@
+<link rel="import" href="/../bower_components/polymer/polymer.html">
+
+<link rel="import" href="/../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/../bower_components/iron-list/iron-list.html">
+
+<link rel="import" href="/../bower_components/paper-button/paper-button.html">
+
+<dom-module id="faculty-list">
+	<template>	
+		<iron-ajax
+		 	auto
+		 	url="/api/faculties"
+		 	handle-as="json"
+		 	last-response="{{faculties}}"></iron-ajax>
+
+		
+		<template is="dom-repeat" items="{{faculties}}">
+			<div>
+				Name: {{item.name}} 
+				{{item.number}}
+				{{item.dean}}
+			</div>
+		</template>
+	</template>
+	
+	<script>
+	Polymer({
+		is: 'faculty-list',
+
+		properties: {
+			faculties: {
+				type: Array,
+				value: [],
+				notify: true
+			}
+		},
+
+		ready: function() {
+			// console.log(this.faculties);
+		}
+	})
+	</script>
+</dom-module>

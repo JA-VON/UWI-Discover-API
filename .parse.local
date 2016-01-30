@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "UWI Discover": {
+      "applicationId": "tBvMwVpDTQu4hYdki1LszRLNuR05mHaTjgiXJEze"
+    },
+    "_default": {
+      "link": "UWI Discover"
+    }
+  }
+}

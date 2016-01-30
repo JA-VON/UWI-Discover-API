@@ -1,0 +1,20 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Discover</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+	<h1>All Research Projects</h1>
+	<% if (projects.length) { %>
+		<% for(var i=0; i<projects.length; i++) { %>
+			<ul class="list-group">
+				<li><%= projects[i].title %></li>
+			</ul>
+		<% } %>
+	<% } else { %>
+		<%= message %>
+	<% } %>
+	<a href="/projects/new"><paper-button raised>Add Your Project</paper-button></a>
+</body>
+</html>
