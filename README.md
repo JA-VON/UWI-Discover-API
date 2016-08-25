@@ -1,4 +1,4 @@
-# UWI Discover API
+# UWI Discover API [DEPRECATED]
 
 ## Introduction
 
